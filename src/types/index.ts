@@ -21,7 +21,7 @@ export type ClassRecord = {
     id: number;
     name: string;
     bannerUrl?: string;
-    status: 'Active' | 'Inactive';
+    status: 'active' | 'inactive';
     capacity?: number;
     subject?: { name: string } | null;
     teacher?: { name: string } | null;
@@ -109,7 +109,7 @@ export type ClassDetails = {
     id: number;
     name: string;
     description: string;
-    status: "Active" | "Inactive";
+    status: "active" | "inactive";
     capacity: number;
     courseCode: string;
     courseName: string;
