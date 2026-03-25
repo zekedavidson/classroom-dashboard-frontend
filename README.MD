@@ -1,48 +1,75 @@
-# classroom-fontend
+# Classroom Management System - Frontend
 
-<div align="center" style="margin: 30px;">
-    <a href="https://refine.dev">
-    <img alt="refine logo" src="https://refine.ams3.cdn.digitaloceanspaces.com/readme/refine-readme-banner.png">
-    </a>
-</div>
-<br/>
+A modern, responsive, and dynamic dashboard web application built to manage daily educational operations including users, departments, subjects, and classroom enrollments.
 
-This [Refine](https://github.com/refinedev/refine) project was generated with [create refine-app](https://github.com/refinedev/refine/tree/master/packages/create-refine-app).
+## 🚀 Tech Stack
 
-## Getting Started
+- **Framework**: React + [Vite](https://vitejs.dev/)
+- **Language**: TypeScript
+- **App Framework**: [Refine](https://refine.dev/) (Headless React Framework for enterprise apps)
+- **Styling UI**: [Tailwind CSS](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/)
+- **Icons**: Lucide React
+- **Data Fetching**: `@better-fetch/fetch` & Refine Data Providers
+- **Authentication Client**: [better-auth](https://better-auth.com/)
 
-A React Framework for building internal tools, admin panels, dashboards & B2B apps with unmatched flexibility ✨
+## ✨ Features
 
-Refine's hooks and components simplifies the development process and eliminates the repetitive tasks by providing industry-standard solutions for crucial aspects of a project, including authentication, access control, routing, networking, state management, and i18n.
+- **Role-Based UI**: Dynamic rendering based on the user's role (Admin, Teacher, Student). Restricts students to view-only access by automatically hiding creation, editing, and deletion tools.
+- **Resource Management**: Comprehensive List, Create, Edit, and Show pages for Departments, Subjects, Classes, and Users.
+- **Enrollment Handling**: Interactive UI within the Class Details view allowing teachers/admins to seamlessly view, enroll, and unenroll students.
+- **Robust Searching & Filtering**: Advanced server-side pagination, searching, and filtering integrations on data tables.
+- **Authentication**: Fully integrated login and registration flows via Better Auth.
 
-## Available Scripts
+## 🛠️ Getting Started
 
-### Running the development server.
+### Prerequisites
 
-```bash
-    npm run dev
+- Node.js (v18 or higher)
+- npm or yarn
+- The Classroom Management Backend running locally or deployed.
+
+### Environment Variables
+
+Create a `.env` file in the root of the frontend directory and add the following:
+
+```env
+# The URL where your backend server is running.
+# Important: Do NOT include a trailing slash or '/api/' suffix.
+VITE_BACKEND_BASE_URL="http://localhost:8000"
 ```
 
-### Building for production.
+### Installation
 
+1. Clone the repository and navigate to the frontend directory:
+   ```bash
+   cd classroom-fontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+Start the Vite development server:
 ```bash
-    npm run build
+npm run dev
 ```
 
-### Running the production server.
+The application will be available at `http://localhost:5173`.
 
-```bash
-    npm run start
-```
+## 📂 Project Structure
 
-## Learn More
+- `src/components/`: Reusable UI components (shadcn/ui), Refine layout wrappers, and custom buttons.
+- `src/lib/`: Core utilities including the `better-auth` client instance (`auth-client.ts`) and fetch wrappers.
+- `src/pages/`: Page-level components organized by Refine resource (Auth, Classes, Departments, Subjects, Users).
+- `src/providers/`: Custom Refine Data and Auth providers tightly coupled with the backend REST architecture.
+- `src/types/`: Shared TypeScript type definitions matching the database schema.
+- `src/App.tsx`: The main Refine entry point where routing, resources, and access control are configured.
 
-To learn more about **Refine**, please check out the [Documentation](https://refine.dev/docs)
+## 🔐 Role-Based Access Control
 
-- **REST Data Provider** [Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
-- **shadcn/ui** [Docs](https://refine.dev/docs/guides-concepts/general-concepts/#headless-concept)
-- **React Router** [Docs](https://refine.dev/docs/core/providers/router-provider/)
+The frontend uses Refine's `accessControlProvider` combined with the identity fetched from `better-auth`. If a logged-in user possesses the `student` role, the global configuration instructs the UI to suppress all administrative mutation attempts and automatically hides `<CreateButton>`, `<EditButton>`, and `<DeleteButton>` components.
 
-## License
-
-MIT
+Enjoy managing your digital classroom!
