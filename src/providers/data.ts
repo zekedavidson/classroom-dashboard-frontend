@@ -80,9 +80,16 @@ const options: CreateDataProviderOptions = {
     buildBodyParams: async ({ variables }) => variables,
 
     mapResponse: async (response) => {
-      const json: CreateResponse = await response.json();
+      if (!response.ok) throw await buildHttpError(response);
+      const json: CreateResponse<Record<string, any>> = await response.json();
 
-      return json.data ?? [];
+      if (json.data === undefined) {
+        throw {
+          message: "Invalid create response: missing data",
+          statusCode: response.status,
+        } as HttpError;
+      }
+      return json.data;
     }
   },
 
@@ -90,9 +97,16 @@ const options: CreateDataProviderOptions = {
     getEndpoint: ({ resource, id }) => `${resource}/${id}`,
 
     mapResponse: async (response) => {
+      if (!response.ok) throw await buildHttpError(response);
       const json: GetOneResponse = await response.json();
 
-      return json.data ?? [];
+      if (json.data === undefined) {
+        throw {
+          message: "Invalid getOne response: missing data",
+          statusCode: response.status,
+        } as HttpError;
+      }
+      return json.data;
     }
   }
 }
