@@ -12,6 +12,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Search } from 'lucide-react'
 import React, { useMemo, useState } from 'react'
 import { ClassRecord } from '@/types'
+import { ShowButton } from '@/components/refine-ui/buttons/show'
 
 const ClassesList = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -123,6 +124,12 @@ const ClassesList = () => {
                     return <span className="text-foreground">{cap ?? '—'}</span>;
                 }
             },
+            {
+                id: 'details',
+                size: 140,
+                header: () => <p className='column-title'>Details</p>,
+                cell: ({ row }) => <ShowButton resource='classes' recordItemId={row.original.id} variant='outline' size='sm'>View</ShowButton>
+            }
         ], []),
         refineCoreProps: {
             resource: 'classes',
